@@ -8,4 +8,7 @@ RUN wget https://github.com/astral-sh/python-build-standalone/releases/download/
 
 RUN /aladdin/python/bin/pip install -U "ray[all]"
 
+RUN sed -i 's|gpu_tags = {\*\*node_tags, "GpuIndex": str(gpu_index)}|gpu_tags = {**node_tags, "GpuIndex": str(gpu_index), "UUID": gpu["uuid"]}|' /aladdin/python/lib/python3.10/site-packages/ray/dashboard/modules/reporter/reporter_agent.py
+RUN rm -rf /aladdin/python/bin/pip*
+
 RUN tar czf ray-env.tar.gz python
