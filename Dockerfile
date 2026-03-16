@@ -6,7 +6,7 @@ WORKDIR /aladdin
 
 RUN wget https://github.com/astral-sh/python-build-standalone/releases/download/20260114/cpython-3.10.19+20260114-x86_64-unknown-linux-gnu-install_only.tar.gz -O python-3.10.tar.gz && tar xf python-3.10.tar.gz && rm -rf python-3.10.tar.gz
 
-RUN /aladdin/python/bin/pip install -U "ray[all]"
+RUN /aladdin/python/bin/pip install -U "ray[all]==2.53.0"
 
 RUN sed -i 's|gpu_tags = {\*\*node_tags, "GpuIndex": str(gpu_index)}|gpu_tags = {**node_tags, "GpuIndex": str(gpu_index), "UUID": gpu["uuid"]}|' /aladdin/python/lib/python3.10/site-packages/ray/dashboard/modules/reporter/reporter_agent.py
 RUN rm -rf /aladdin/python/bin/pip*
